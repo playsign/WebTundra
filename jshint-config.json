@@ -1,0 +1,17 @@
+{
+    "browser": true,
+    "globalstrict": true,
+    "devel": true,
+    "debug": true,
+    "globals": {
+        "requestAnimationFrame": false,
+        "THREE": false, "THREEx": false, "Stats": false, "Detector": false,
+        "signals": false,
+        "check": false, "checkDefined": false,
+        "EC_Placeable": false, "EC_Mesh": false,
+        "EC_Light": false, "EC_Camera": false,
+        "Entity": false, "Component": false,
+        "Attribute": false,
+        "ThreeView": false, "WebTundraModel": false
+    }
+}

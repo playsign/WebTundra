@@ -1,9 +1,5 @@
 "use strict";
-/* jslint browser: true, globalstrict: true, devel: true, debug: true */
-/* global requestAnimationFrame */
 /* global ThreeView, WebTundraModel */
-/* global EC_Mesh, EC_Placeable */
-/* global THREE, THREEx, signals, Stats, Detector */
 
 // For conditions of distribution and use, see copyright notice in LICENSE
 /*

@@ -1,5 +1,3 @@
-/* jslint browser: true, globalstrict: true, devel: true, debug: true */
-
 // For conditions of distribution and use, see copyright notice in LICENSE
 
 /**

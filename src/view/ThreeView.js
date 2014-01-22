@@ -1,8 +1,5 @@
 "use strict";
-/* jslint browser: true, globalstrict: true, devel: true, debug: true */
-/* global THREE, THREEx, signals, Stats, Detector */
-/* global check, checkDefined, EC_Placeable, EC_Mesh, EC_Camera, EC_Light,
-   LT_Point, LT_Spot, LT_Directional */
+/* global LT_Point, LT_Spot, LT_Directional */
 
 // For conditions of distribution and use, see copyright notice in LICENSE
 /*
