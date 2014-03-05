@@ -1,4 +1,5 @@
 function XML3DJSView() {
+    this.createScene();
 }
 
 XML3DJSView.prototype = {
@@ -7,6 +8,12 @@ XML3DJSView.prototype = {
 
     createScene: function() {
         //return new THREE.Scene();
+	var xml3dElementId = "xml3d";
+        var _xml3dElement = document.getElementById(xml3dElementId);
+        if(!_xml3dElement) //is apparently XML3D for me now, html vs xhtml? || _xml3dElement.tagName != "xml3d")
+            console.error("[ERROR] (XML3DJSView) : Cannot find XML3D element with id " + xml3dElementId);
+        this.xml3dElement = _xml3dElement;
+	console.log("XML3DJSView createScene");
     },
 
     render: function(delta) {
