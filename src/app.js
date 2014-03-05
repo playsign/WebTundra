@@ -33,8 +33,8 @@ Application.prototype = {
 
         // VIEWER
         this.viewer = this.createViewer();
-        this.viewer.objectClicked.add(this.onObjectClicked.bind(this));
-		this.viewer.renderer.setClearColor( 0x9999D6, 1 );
+        //this.viewer.objectClicked.add(this.onObjectClicked.bind(this));
+	//this.viewer.renderer.setClearColor( 0x9999D6, 1 );
 
         // MODEL
         this.connected = false;
@@ -54,7 +54,8 @@ Application.prototype = {
     },
 
     createViewer: function() {
-        return new ThreeView();
+        //return new ThreeView();
+	return new XML3DJSView();
     },
 
     start: function() {
@@ -104,13 +105,13 @@ Application.prototype = {
         if (!useSignals)
             this.dataToViewerUpdate();
 
-        this.viewer.stats.update();
+        //this.viewer.stats.update();
 
         requestAnimationFrame(function() {
             this.update();
         }.bind(this));
 
-        this.viewer.render(delta);
+        //this.viewer.render(delta);
         this.frameCount++;
     },
 

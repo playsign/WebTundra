@@ -10,7 +10,7 @@
 
 var app = new Application();
 app.start();
-app.viewer.meshReadySig.add(function(meshComp, threeMesh) {
+/*app.viewer.meshReadySig.add(function(meshComp, threeMesh) {
     // if (/raf22031\.ctm$/.test(meshComp.meshRef.ref) === false)
     //     return;
 
@@ -22,10 +22,10 @@ app.viewer.meshReadySig.add(function(meshComp, threeMesh) {
     var rafCarMaterial = new THREE.MeshPhongMaterial(materialParams);
     threeMesh.material = rafCarMaterial;
     console.log("swapped custom material");
-});
+});*/
 
 function setupEditorControls() {
-    var controls = new THREE.EditorControls(app.viewer.camera, app.viewer.renderer.domElement);
+    //var controls = new THREE.EditorControls(app.viewer.camera, app.viewer.renderer.domElement);
 }
 function loadXml3d(model, docurl) {
     var parser = new SceneParser(model);
