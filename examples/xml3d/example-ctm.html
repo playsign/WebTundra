@@ -31,7 +31,8 @@
 <script src="../../src/scene/EC_Camera.js"></script>
 <script src="../../src/scene/EC_Sound.js"></script>
 
-<!-- three things - not really used now, as testing xml3djs -->
+<!-- three things - not really used now, as testing xml3djs.
+app still uses THREE clock & keyboard controller etc -->
 <script src="../../src/view/js/Three.js"></script>
 <script src="../../src/view/js/Detector.js"></script>
 <script src="../../src/view/js/Stats.js"></script>
@@ -39,27 +40,35 @@
 <script src="../../src/view/js/THREEx.FullScreen.js"></script>
 <script src="../../src/view/js/THREEx.WindowResize.js"></script>
 
+<!-- three things not used with xml3djs 
+<script src="../../src/view/ThreeView.js"></script>
+<script src="../../src/view/js/EditorControls.js"></script>
 <script src="../../src/view/js/loaders/ctm/CTMLoader.js"></script>
 <script src="../../src/view/js/loaders/ctm/ctm.js"></script>
 <script src="../../src/view/js/loaders/ctm/lzma.js"></script>
+-->
+
+<!-- temp hack as XML3DJSView does not handle camera comp yet -->
+<xml3d id="xml3d">
+<view id="camera1" position="0 0 20" orientation="1 0 0 0.15"/>
+</xml3d>
 
 <!-- xml3d.js alternative -->
 <script src="http://www.xml3d.org/xml3d/script/xml3d.js"></script>
+<script src="http://www.xml3d.org/xml3d/script/tools/camera.js"></script>
 
 <script src="../../src/scene/SceneParser.js"></script>
 <script src="../../src/app.js"></script>
 <script src="../../src/WebTundraModel.js"></script>
-<!-- script src="../../src/view/ThreeView.js"></script-->
-<script src="../../src/view/XML3DJSView.js"></script-->
-<script src="../../src/view/js/EditorControls.js"></script>
 
-<!-- ------------------------------------------------------------ -->
+<script src="../../src/view/XML3DJSView.js"></script>
+<!-- had probs with the xml3d.js ctm code locally so not using now 
+<script src="../../src/view/xml3djs/openctm/lzma.js"></script>
+<script src="../../src/view/xml3djs/openctm/ctm.js"></script>
+<script src="../../src/view/xml3djs/openctm/openctm-loader.js"></script>
+-->
 
-<div id="ThreeJS" style="z-index: 1; position: absolute; left:0px; top:0px"></div>
 <script src="example-ctm.js"></script>
-
-<xml3d id="xml3d">
-</xml3d>
 
 </body>
 </html>
