@@ -563,3 +563,9 @@ function createAttribute(typeId) {
 function sanitatePropertyName(name) {
     return (name.substring(0, 1).toLowerCase() + name.substring(1)).trim();
 }
+
+if (typeof module !== 'undefined' && module.exports) { //node
+    module.exports.AttributeChange = AttributeChange;
+    module.exports.createAttribute = createAttribute;
+    module.exports.sanitatePropertyName = sanitatePropertyName;
+}

@@ -146,3 +146,11 @@ Scene.prototype = {
         this.componentIdChanged.dispatch(entity, oldId, newId);
     }
 };
+
+if (typeof module !== 'undefined' && module.exports) { //node
+    module.exports.Scene = Scene;
+    var UniqueIdGenerator = require("./UniqueIdGenerator").UniqueIdGenerator;
+    var signals = require("../util/Signals");
+    var Entity = require("./Entity").Entity;
+    var AttributeChange = require("./Attribute").AttributeChange;
+}

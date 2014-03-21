@@ -4,7 +4,8 @@
 var floatWriteDataView = new DataView(new ArrayBuffer(4));
 
 function DataSerializer(lengthBytes) {
-    this.dataView = new DataView(new ArrayBuffer(lengthBytes));
+    this.dataView = new DataView(ArrayBuffer(lengthBytes));
+    console.log("ok");
     this.bitPos = 0;
     this.bytePos = 0;
 }
@@ -213,4 +214,7 @@ DataSerializer.prototype = {
     get arrayBuffer(){
         return this.dataView.buffer;
     }
-}
+};
+
+if (typeof module !== 'undefined' && module.exports) //node
+    module.exports.DataSerializer = DataSerializer;

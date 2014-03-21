@@ -32,3 +32,7 @@ UniqueIdGenerator.prototype = {
         return this.localId;
     }
 }
+
+if (typeof module !== 'undefined' && module.exports) { //node
+    module.exports.UniqueIdGenerator = UniqueIdGenerator;
+}

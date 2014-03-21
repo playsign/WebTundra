@@ -28,7 +28,9 @@ WebSocketClient.prototype = {
         this.messageReceived.add(this.onMessageReceived, this); // For handling LoginReply
 
         try {
-            if (window.WebSocket)
+            if (runningNodeJs)
+                this.webSocket = new WebSocket(this.url);
+            else if (window.WebSocket)
                 this.webSocket = new window.WebSocket(this.url);
             else if (window.MozWebSocket)
                 this.webSocket = new window.MozWebSocket(this.url);
@@ -45,15 +47,35 @@ WebSocketClient.prototype = {
 
         this.webSocket.onopen = function(evt) {
             this.connected.dispatch();
+            console.log("connection open");
         }.bind(this);
+
+        this.webSocket.onerror = function(evt) {
+            console.log("websocket error: " + evt);
+        }.bind(this);
+
+        this.webSocket.on('error', function(evt) {
+            console.log("websocket error: " + evt);
+        }.bind(this));
 
         this.webSocket.onclose = function(evt) {
             this.disconnected.dispatch();
             this.webSocket = null;
+            console.log("closed");
         }.bind(this);
 
         this.webSocket.onmessage = function(evt) {
-            var dd = new DataDeserializer(evt.data);
+            var msgbin;
+            if (runningNodeJs) {
+                var ab = new ArrayBuffer(evt.data.length);
+                var byteview = new Uint8Array(ab);
+                for (var i = 0; i < evt.data.length; i++)
+                    byteview[i] = evt.data[i];
+                msgbin = ab;
+            } else
+                msgbin = evt.data;
+            
+            var dd = new DataDeserializer(msgbin);
             var msgId = dd.readU16();
             this.messageReceived.dispatch(msgId, dd);
         }.bind(this);
@@ -119,4 +141,14 @@ WebSocketClient.prototype = {
             dd.resetTraversal(); // Reset deserializer in case others want to read the message
         }
     }
+};
+
+if (typeof module !== 'undefined' && module.exports) { //node
+    var runningNodeJs = true;
+    module.exports.WebSocketClient = WebSocketClient;
+    var signals = require("../util/Signals");
+    var WebSocket = require("../server/node_modules/ws");
+    var DataSerializer = require('../network/DataSerializer').DataSerializer;
+    var DataDeserializer = require('../network/DataDeserializer').DataDeserializer;
+
 }

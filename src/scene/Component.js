@@ -174,6 +174,7 @@ function registerComponent(typeId, typeName, factory) {
     componentTypeNames[typeId] = typeName;
     componentTypeIds[typeName] = typeId;
     componentFactories[typeId] = factory;
+    console.log("registered: component " + typeId);
 }
 
 function createComponent(typeId) {
@@ -187,4 +188,19 @@ function createComponent(typeId) {
         console.log("Could not create unknown component " + typeId);
         return null;
     }
+}
+
+if (typeof module !== 'undefined' && module.exports) { //node
+    var cLastReplicatedId = 0x3fffffff;
+    var cFirstUnackedId = 0x40000000;
+    var cFirstLocalId = 0x80000000;
+    var signals = require("../util/Signals");
+    module.exports.registerComponent = registerComponent;
+    module.exports.createComponent = createComponent;
+    module.exports.Component = Component;
+    var signals = require("../util/Signals");
+    var createAttribute = require("./Attribute").createAttribute;
+    var sanitatePropertyName = require("./Attribute").sanitatePropertyName;
+    var AttributeChange = require("./Attribute").AttributeChange;
+
 }

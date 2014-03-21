@@ -1,5 +1,43 @@
 // For conditions of distribution and use, see copyright notice in LICENSE
 
+
+if (typeof module !== 'undefined' && module.exports) { //node
+    var signals = require("../util/Signals");
+    var ComponentModule = require("./Component");
+    var AttributeModule = require("./Attribute");
+    var Component = ComponentModule.Component;
+    var registerComponent = ComponentModule.registerComponent;
+    console.log("zz " + AttributeModule);
+    var cAttributeNone = 0;
+    var cAttributeString = 1;
+    var cAttributeInt = 2;
+    var cAttributeReal = 3;
+    var cAttributeColor = 4;
+    var cAttributeFloat2 = 5;
+    var cAttributeFloat3 = 6;
+    var cAttributeFloat4 = 7;
+    var cAttributeBool = 8;
+    var cAttributeUInt = 9;
+    var cAttributeQuat = 10;
+    var cAttributeAssetReference = 11;
+    var cAttributeAssetReferenceList = 12;
+    var cAttributeEntityReference = 13;
+    var cAttributeQVariant = 14;
+    var cAttributeQVariantList = 15;
+    var cAttributeTransform = 16;
+    var cAttributeQPoint = 17;
+    var cNumAttributeTypes = 18;
+    for (var i = 0; i < AttributeModule.length; i++) {
+        var key = AttributeModule[i];
+        console.log(key);
+        if (AttributeModule.hasOwnProperty(key) && key[0] == "c") {
+            eval(key + " = " + AttributeModule[key]);
+            console.log("setting " + key);
+            //global[key] = AttributeModule[key];
+        }
+    }
+}
+
 var cComponentTypePlaceable = 20;
 
 function EC_Placeable() {
@@ -46,7 +84,7 @@ EC_Placeable.prototype.waitParent = function(addedEntity, changeType) {
         this.parentRefReady.dispatch();
         this.parentEntity.parentScene.entityCreated.remove(this.waitParent);
     }
-}
+};
 
 registerComponent(cComponentTypePlaceable, "Placeable", function(){ return new EC_Placeable(); });
-        
+

@@ -173,3 +173,12 @@ Entity.prototype = {
         nameAttr.value = value;
     }
 };
+
+if (typeof module !== 'undefined' && module.exports) { //node
+    module.exports.Entity = Entity;
+    var UniqueIdGenerator = require("./UniqueIdGenerator").UniqueIdGenerator;
+    var signals = require("../util/Signals");
+    var createComponent = require("./Component").createComponent;
+    var AttributeChange = require("./Attribute").AttributeChange;
+    var sanitatePropertyName = require("./Attribute").sanitatePropertyName;
+}

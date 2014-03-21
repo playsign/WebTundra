@@ -198,4 +198,7 @@ DataDeserializer.prototype = {
     get bitsLeft(){
         return this.bytePos >= this.size ? 0 : (this.size - this.bytePos) * 8 - this.bitPos;
     }
-}
+};
+
+if (typeof module !== 'undefined' && module.exports) //node
+    module.exports.DataDeserializer = DataDeserializer;

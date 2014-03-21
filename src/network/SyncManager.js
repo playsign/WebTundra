@@ -264,7 +264,7 @@ SyncManager.prototype = {
         var numComponents = dd.readVLE();
 
         // Changes from the server are localonly on the client to not trigger further replication back
-        var entity = scene.createEntity(entityId, AttributeChange.LocalOnly);
+        var entity = this.scene.createEntity(entityId, AttributeChange.LocalOnly);
         if (entity == null)
             return;
         if (this.logDebug)
@@ -321,7 +321,7 @@ SyncManager.prototype = {
     handleEditAttributes : function(dd) {
         var sceneId = dd.readVLE(); // Dummy sceneID for multi-scene support, yet unused
         var entityId = dd.readVLE();
-        var entity = scene.entityById(entityId);
+        var entity = this.scene.entityById(entityId);
         if (entity == null) {
             console.log("Entity id " + entityId + " not found when handling EditAttributes message");
             return;
@@ -729,4 +729,11 @@ SyncState.prototype = {
             ret.push(key);
         return ret;
     }
+};
+
+if (typeof module !== 'undefined' && module.exports) { //node
+    module.exports.SyncManager = SyncManager;
+    var AttributeChange = require("../scene/Attribute").AttributeChange;
+    var DataSerializer = require('./DataSerializer').DataSerializer;
+    var DataDeserializer = require('./DataDeserializer').DataDeserializer;
 }
