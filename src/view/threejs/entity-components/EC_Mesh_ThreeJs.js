@@ -113,7 +113,7 @@ var EC_Mesh_ThreeJs = EC_Mesh.$extend(
             {
                 // Support force requesting three.js meshes with correct type
                 var forcedType = undefined;
-                if (CoreStringUtils.endsWith(meshRef, ".json", true) || CoreStringUtils.endsWith(meshRef, ".js", true))
+                if (CoreStringUtils.endsWith(meshRef, ".json", true) || CoreStringUtils.endsWith(meshRef, ".js", true) || CoreStringUtils.endsWith(meshRef, ".mesh", true)) ////XXX DIRTY DEV ogreMeshHack -- BREAKS OGRE MESHES IN WEBROCKET! :p
                     forcedType = "ThreeJsonMesh";
 
                 this.meshRequested = true;
@@ -123,6 +123,7 @@ var EC_Mesh_ThreeJs = EC_Mesh.$extend(
             }
         }
 
+/*
         // Request materials
         if (this.materialAssets.length === 0 && !this.materialsRequested)
         {
@@ -149,11 +150,12 @@ var EC_Mesh_ThreeJs = EC_Mesh.$extend(
                 }
             }
         }
-
+*/
         // Mesh still loading?
         if (this.meshAsset == null || !this.meshAsset.isLoaded())
             return;
 
+/*
         // Materials still loading?
         if (this.allMaterialsLoaded())
         {
@@ -206,6 +208,7 @@ var EC_Mesh_ThreeJs = EC_Mesh.$extend(
                         this.parentEntity.name);
             }
         }
+*/
 
         // Parent this meshes scene node to EC_Placeable scene node
         if (this.meshAsset.mesh.parent == null)

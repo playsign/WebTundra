@@ -242,7 +242,19 @@ var ThreeJsRenderer = IRenderSystem.$extend(
         /** @note It would be too wide of acceptance range if the three.js json accepted all .json file extensions.
             .3geo is a three.js "standardized" extensions for mesh assets, but not widely used (yet).
             You can load from .json/.js files via AssetAPI but you need to force the type to "ThreeJsonMesh". */
-        TundraSDK.framework.asset.registerAssetFactory(new AssetFactory("ThreeJsonMesh", ThreeJsonAsset, { ".3geo" : "json", ".json" : "json", ".js" : "json" }));
+        var threeJsonExts = [
+            ".3geo",  
+            ".json",
+            ".js"
+        ];
+        var ext2type = {};
+        for (i = 0; i < threeJsonExts.length; i++) {
+            ext2type[threeJsonExts[i]] = "json";
+        }
+        //XXX DIRTY DEV ogreMeshHack -- BREAKS OGRE MESHES IN WEBROCKET! :p
+        ext2type[".mesh"] = "json"; 
+        TundraSDK.framework.asset.registerAssetFactory(new AssetFactory("ThreeJsonMesh", ThreeJsonAsset, ext2type));
+        //TundraSDK.framework.asset.registerAssetFactory(new AssetFactory("ThreeJsonMesh", ThreeJsonAsset, { ".3geo" : "json", ".json" : "json", ".js" : "json" }));
         TundraSDK.framework.asset.registerAssetFactory(new AssetFactory("ObjMesh", ObjMeshAsset, { ".obj" : "text" }));
     },
 
