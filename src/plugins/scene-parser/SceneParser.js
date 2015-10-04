@@ -209,30 +209,24 @@ var SceneParser = Class.$extend(
             if (!gotTransform)
                 this.log.debug("using default transform for group", group);
 
-            var meshChildren = group.getElementsByTagName("mesh");
-            if (meshChildren.length > 0) {
-                //console.log("*** handling meshes in group " + i);
-                var xmesh = meshChildren[0];
-                if (meshChildren.length > 1)
-                    this.log.debug("handling only first mesh of " + meshChildren.length);
-
-                var type = xmesh.getAttribute("type");
-                var src = xmesh.getAttribute("src");
-                var meshName = xmesh.getAttribute("id") || groupId;
-
-                // Convert relative refs to our scenes base ref
-                if (CoreStringUtils.startsWith(src, "./", true))
-                    src = src.substring(2);
-                if (!CoreStringUtils.startsWith(src, "http", true))
-                    src = this.baseRef + src;
-
-                var mesh = entity.createLocalComponent("Mesh", meshName);
-                mesh.meshRef = src;
+            var compdata = this.getRefForComponent(group, groupId, "mesh");
+            if (compdata !== null) {
+                var mesh = entity.createLocalComponent("Mesh", compdata.name);
+                mesh.meshRef = compdata.src;
                 this.log.debug("    Created", mesh.toString());
-               
             } else {
                 //console.log("no meshes in group " + i);
             }
+
+            compdata = this.getRefForComponent(group, groupId, "sound");
+            if (compdata !== null) {
+                var sound = entity.createLocalComponent("Sound", compdata.name);
+                sound.soundRef = compdata.src;
+                this.log.debug("    Created", sound.toString());
+            } else {
+                //console.log("no meshes in group " + i);
+            }
+
             var viewChildren = group.getElementsByTagName("view");
             
             if (viewChildren.length > 0) {
@@ -289,11 +283,37 @@ var SceneParser = Class.$extend(
             this.log.debug("    Created", entity.camera.toString());
             entity.camera.setActive();
             this.log.debug("    Activated camera in", entity.toString());
-            
+        }
+    },
+
+    //originally mesh comp code reused for sound now too
+    getRefForComponent : function(group, groupId, compname) {
+        var meshChildren = group.getElementsByTagName(compname);
+        if (meshChildren.length > 0) {
+            //console.log("*** handling meshes in group " + i);
+            var xmesh = meshChildren[0];
+            if (meshChildren.length > 1)
+                this.log.debug("handling only first " + compname + " of " + meshChildren.length);
+
+            var type = xmesh.getAttribute("type");
+            var src = xmesh.getAttribute("src");
+            var meshName = xmesh.getAttribute("id") || groupId;
+
+            // Convert relative refs to our scenes base ref
+            if (CoreStringUtils.startsWith(src, "./", true))
+                src = src.substring(2);
+            if (!CoreStringUtils.startsWith(src, "http", true))
+                src = this.baseRef + src;
+            return {
+                'src': src,
+                'name': meshName
+            }
+        } else {
+            return null;
         }
     }
-});
 
+});
 
 function getDirectChildNodesByTagName(node, tagName)
 {
